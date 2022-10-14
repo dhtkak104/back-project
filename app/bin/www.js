@@ -1,5 +1,6 @@
 const app = require("../app");
+const PORT = process.env.PORT || 8081;
 
-app.listen(process.env.PORT || 8081, () => {
-  console.log('서버가동');
+app.listen(PORT, () => {
+  console.log(PORT + '번 포트 서버가동');
 });
