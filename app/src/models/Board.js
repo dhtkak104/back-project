@@ -17,7 +17,7 @@ class Board {
       return response;
     } 
     catch (err) {
-      return { success:false, msg:err};
+      return { success:false, err };
     }
   }
 

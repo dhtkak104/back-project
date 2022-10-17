@@ -6,10 +6,7 @@ class BoardStrorage {
       const query = 'SELECT * FROM demo.t_bbs;';
       db.query(query, (err, data) => {
         if(err) reject(`${err}`);
-        
-        const response = data.rows;
-        console.log(response);
-        resolve(response);
+        else    resolve(data.rows);
       });
     }); 
   };
@@ -19,10 +16,7 @@ class BoardStrorage {
       const query = 'SELECT * FROM demo.t_bbs WHERE bbs_no = ?;'
       db.query(query, [id], (err, data) => {
         if(err) reject(`${err}`);
-        
-        const response = data.rows[0];
-        console.log(response);
-        resolve(response);
+        else    resolve(data.rows[0]);
       });
     }); 
   };
@@ -32,7 +26,7 @@ class BoardStrorage {
       const query = 'INSERT INTO demo.t_bbs (bbs_title, bbs_contents) VALUES (?, ?);'
       db.query(query, [board.bbs_title, board.bbs_contents], (err) => {
         if(err) reject(`${err}`);
-        resolve({});
+        else    resolve({});
       });
     }); 
   };
