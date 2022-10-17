@@ -7,7 +7,17 @@ class Board {
 
   async getBoards() {
     const client = this.body;
-    return await BoardStorage.getBoards();
+    try {
+      const board = await BoardStorage.getBoards();
+      if (board) {
+        return { success:true };
+      } else {
+        return { success:false, msg: '존재하지 않는 데이터입니다.' };
+      }
+    }
+    catch (err) {
+      return { success:false, err };
+    }
   }
 
   async insertBoard() {

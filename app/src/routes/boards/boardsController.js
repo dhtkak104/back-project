@@ -11,19 +11,28 @@ const data = {
   insertBoards: (req, res) => {
     const board = new Board(req.body);
     const response = board.insertBoard();
-    if (response.err) {
-      logger.error(
-        `GET /selectBoards 200 Response: "success: ${response.success}, ${response.err}"`
-      );
-    } else {
-      logger.info(
-        `GET /selectBoards 200 Response: "success: ${response.success}, msg: ${response.msg}"`
-      );
-    }
-    return res.json(response);
+    const url = {
+      method: 'POST',
+      path: '/insertBoard',
+      status: response.err ? 400 : 201
+    };
+    log(response, url);
+    return res.status(url.status).json(response);
   },
 };
 
 module.exports = {
   data,
+}
+
+const log = (response, url) => {
+  if (response.err) {
+    logger.error(
+      `${url.method} ${url.path} ${url.status} Response: ${response.success} ${response.err}`
+    );
+  } else {
+    logger.info(
+      `${url.method} ${url.path} ${url.status} Response: ${response.success} ${response.msg || ""}`
+    );
+  }  
 }
