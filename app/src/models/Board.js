@@ -6,11 +6,10 @@ class Board {
   }
 
   async getBoards() {
-    const client = this.body;
     try {
       const board = await BoardStorage.getBoards();
       if (board) {
-        return { success:true };
+        return { success:true, data:board, status:200 };
       } else {
         return { success:false, msg: '존재하지 않는 데이터입니다.' };
       }
@@ -20,7 +19,7 @@ class Board {
     }
   }
 
-  async insertBoard() {
+  async insertBoard(board) {
     const client = this.body;
     try {
       const response = await BoardStorage.insertBoard(client);
@@ -31,6 +30,47 @@ class Board {
     }
   }
 
+  async getBoard() {
+    try {
+      const board = await BoardStorage.getBoards();
+      if (board) {
+        return { success:true, data:board, status:200 };
+      } else {
+        return { success:false, msg: '존재하지 않는 데이터입니다.' };
+      }
+    }
+    catch (err) {
+      return { success:false, err };
+    }
+  }
+
+  async updateBoard() {
+    try {
+      const board = await BoardStorage.getBoards();
+      if (board) {
+        return { success:true, data:board, status:200 };
+      } else {
+        return { success:false, msg: '존재하지 않는 데이터입니다.' };
+      }
+    }
+    catch (err) {
+      return { success:false, err };
+    }
+  }
+
+  async deleteBoard() {
+    try {
+      const board = await BoardStorage.getBoards();
+      if (board) {
+        return { success:true, data:board, status:200 };
+      } else {
+        return { success:false, msg: '존재하지 않는 데이터입니다.' };
+      }
+    }
+    catch (err) {
+      return { success:false, err };
+    }
+  }
 }
 
 module.exports = Board;

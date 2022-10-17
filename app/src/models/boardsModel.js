@@ -1,6 +1,6 @@
 const db = require('../config/db');
 
-class BoardStrorage {
+class BoardsModel {
   static getBoards() {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM demo.t_boards;';
@@ -12,8 +12,9 @@ class BoardStrorage {
   };
 
   static insertBoard(board) {
+    console.log(board);
     return new Promise((resolve, reject) => {
-      const query = 'INSERT INTO demo.t_boards (title, contents) VALUES ($1, $2);';
+      const query = 'INSERT INTO demo.t_boards (title, contents) VALUES ($1, $2);'
       db.query(query, [board.title, board.contents], (err) => {
         if(err) reject(`${err}`);
         else    resolve({});
@@ -23,7 +24,7 @@ class BoardStrorage {
 
   static getBoard(board) {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM demo.t_boards WHERE board_no = $1';
+      const query = 'SELECT * FROM demo.t_boards WHERE board_no = $1;'
       db.query(query, [board.board_no], (err, data) => {
         if(err) reject(`${err}`);
         else    resolve(data.rows[0]);
@@ -43,8 +44,8 @@ class BoardStrorage {
 
   static deleteBoard(board) {
     return new Promise((resolve, reject) => {
-      const query = 'DELETE FORM demo.t_boards WHERE board_no = $1;'
-      db.query(query, [board_board_no], (err, data) => {
+      const query = 'DELETE FROM demo.t_boards WHERE board_no = $1;'
+      db.query(query, [board.board_no], (err, data) => {
         if(err) reject(`${err}`);
         else    resolve({});
       });
@@ -52,5 +53,4 @@ class BoardStrorage {
   };
 }
 
-
-module.exports = BoardStrorage;
+module.exports = BoardsModel;
