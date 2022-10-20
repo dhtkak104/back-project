@@ -1,56 +1,54 @@
-const db = require('../config/db');
+import { boardDTO } from '../interface/baordsDTO';
+import db from '../config/db';
 
-class BoardsModel {
-  static getBoards() {
+export const boardsModel = {
+  getBoards() {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM demo.t_boards;';
-      db.query(query, (err, data) => {
+      db.query(query, (err:any, data:any) => {
         if(err) reject(`${err}`);
         else    resolve(data.rows);
       });
     }); 
-  };
+  },
 
-  static insertBoard(board) {
-    console.log(board);
+  insertBoard(board: boardDTO) {
     return new Promise((resolve, reject) => {
       const query = 'INSERT INTO demo.t_boards (title, contents) VALUES ($1, $2);'
-      db.query(query, [board.title, board.contents], (err) => {
+      db.query(query, [board.title, board.contents], (err:any, data:any) => {
         if(err) reject(`${err}`);
         else    resolve({});
       });
     }); 
-  };
+  },
 
-  static getBoard(board) {
+  getBoard(board_no: string) {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM demo.t_boards WHERE board_no = $1;'
-      db.query(query, [board.board_no], (err, data) => {
+      db.query(query, [board_no], (err:any, data:any)  => {
         if(err) reject(`${err}`);
         else    resolve(data.rows[0]);
       });
     }); 
-  };
+  },
 
-  static updateBoard(board) {
+  updateBoard(board: boardDTO) {
     return new Promise((resolve, reject) => {
-      const query = 'UPDATE demo.t_boards SET title = $1, contents = $2 WHERE board_no = $3;'
-      db.query(query, [board.title, board.contents, board.board_no], (err, data) => {
+      const query = 'UPDATE demo.t_boards SET title = $1, contents = $2, update_ts = NOW() WHERE board_no = $3;'
+      db.query(query, [board.title, board.contents, board.board_no], (err:any, data:any) => {
         if(err) reject(`${err}`);
         else    resolve({});
       });
     }); 
-  };
+  },
 
-  static deleteBoard(board) {
+  deleteBoard(board_no: string) {
     return new Promise((resolve, reject) => {
       const query = 'DELETE FROM demo.t_boards WHERE board_no = $1;'
-      db.query(query, [board.board_no], (err, data) => {
+      db.query(query, [board_no], (err:any, data:any) => {
         if(err) reject(`${err}`);
         else    resolve({});
       });
     }); 
-  };
-}
-
-module.exports = BoardsModel;
+  },
+};

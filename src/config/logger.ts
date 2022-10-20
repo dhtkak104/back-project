@@ -1,4 +1,4 @@
-const { createLogger, transports, format } = require('winston');
+import { createLogger, transports, format } from 'winston';
 const { combine, timestamp, label, printf, simple, colorize } = format;
 
 const printFormat = printf(({ timestamp, label, level, message }) => {
@@ -43,8 +43,8 @@ if(process.env.NODE_ENV !== 'production') {
   logger.add(opts.console);
 }
 
-logger.stream = {
-  write: (message) => logger.info(message)
-}
+// logger.stream = {
+//   write: (message:string) => logger.info(message:string)
+// }
 
-module.exports = logger;
+export default logger;
