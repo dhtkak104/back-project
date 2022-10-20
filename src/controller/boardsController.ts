@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { boardsService } from '../service/boardsService';
+import {  boardsService } from '../service/boardsService';
 
 export const boardsController = {
   selectBoards: async (req: Request, res: Response) => {
