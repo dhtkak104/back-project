@@ -1,8 +1,8 @@
 import request from 'request';
 import { schoolSeachDTO } from '../interface/schoolsDTO';
 
-export const schoolsService = {
-  getSchools: async (param: schoolSeachDTO) => {
+export class SchoolService {
+  async getSchools(param: schoolSeachDTO) {
     const result = {status:200, msg:'', data:{}};
 
     param.apiKey = 'a8d332936f1c5e41faa8d95ba584091d';
@@ -21,5 +21,5 @@ export const schoolsService = {
     });
 
     return result;
-  },
+  };
 }

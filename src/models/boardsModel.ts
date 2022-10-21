@@ -1,3 +1,4 @@
+/* 
 import { boardDTO } from '../interface/baordsDTO';
 import db from '../config/db';
 
@@ -52,3 +53,4 @@ export const boardsModel = {
     }); 
   },
 };
+*/

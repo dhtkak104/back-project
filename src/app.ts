@@ -3,8 +3,8 @@ import './config/dotenv';
 import express, {Request, Response} from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import db from './config/db';
 import routes from './routes';
+import { connect } from './config/db';
 
 const port = process.env.PORT || 8081 as number;
 const app = express();
@@ -22,7 +22,20 @@ app.get('/', (req: Request, res: Response) => {
 }) 
 
 app.listen(port, () => {
-    console.log(`${port} 번 가동`);
-    db.connect();
-    routes(app);
+  console.log(`${port} 번 가동`);
+    
+  const dbInfo  = {
+    host : process.env.DB_HOST as string,
+    user : process.env.DB_USER as string,
+    password : process.env.DB_PASSWORD as string,
+    database : process.env.DB_DATABASE as string,
+    dialect : process.env.DB_DIALECT as any
+  }
+    
+  const db = connect(dbInfo);
+  db.authenticate().then(() => {
+        console.log('Database connected...');
+  });
+  routes(app);
+
 });
