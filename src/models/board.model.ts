@@ -1,8 +1,7 @@
-import { Table, Column, Model } from 'sequelize-typescript'
+import { Column, Model, Table } from 'sequelize-typescript';
 
 @Table
-export class Board extends Model {
- 
+export class Board extends Model{
   @Column
   board_no: number;
 

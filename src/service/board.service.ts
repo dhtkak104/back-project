@@ -1,3 +1,4 @@
+import { Board } from '../models/board.model';
 import { boardDTO } from '../interface/baordsDTO';
 import { BoardRepository } from '../repository/board.repository';
 
@@ -16,7 +17,7 @@ export class BoardService {
     return result;
   };
   
-  async insertBoard(board: boardDTO) {
+  async insertBoard(board: Board) {
     const result = {status:200, msg:'', data:{}};
     await this.boardRepository.insertBoard(board);
     return result;
@@ -25,11 +26,11 @@ export class BoardService {
   async getBoard(board_no: string) {
     const result = {status:200, msg:'', data:{}};
     const board = await this.boardRepository.getBoard(board_no);
-    result.data = board; // 궁금: result.data = board; 안되는 이유
+    //result.data = board; // 궁금: result.data = board; 안되는 이유
     return result;
   };
   
-  async updateBoard(board: boardDTO) {
+  async updateBoard(board: Board) {
     const result = {status:200, msg:'', data:{}};
     await this.boardRepository.updateBoard(board);
     return result;

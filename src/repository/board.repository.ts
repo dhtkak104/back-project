@@ -1,38 +1,37 @@
 import { connect } from '../config/db';
 import { Board } from '../models/board.model';
-import { boardDTO } from '../interface/baordsDTO';
 
 export class BoardRepository {
- 
+
   private db: any = {};
-  private boardRepository: any;
+  private boardRespository: any;
 
   constructor() {
     this.db = connect();
     this.db.sequelize.sync({ force: true }).then(() => {
       console.log("Drop and re-sync db.");
     });
-    this.boardRepository = this.db.sequelize.getRepository(Board);
+    this.boardRespository = this.db.sequelize.getRepository(Board);
   }
 
   async getBoards() {
-    return await this.boardRepository.findAll();
+    return await this.boardRespository.findAll();
   }
 
   async getBoard(boardNo: string) {
-    return await this.boardRepository.findByPk(boardNo);
+    return await this.boardRespository.findByPk(boardNo);
   }
 
-  async insertBoard(board: boardDTO) {
-    return await this.boardRepository.create(board);;
+  async insertBoard(board: Board) {
+    return await this.boardRespository.create(board);
   }
 
-  async updateBoard(board: boardDTO) {    
-    return await this.boardRepository.update(board, {where: {board_no: board.board_no}});;
+  async updateBoard(board: Board) {    
+    return await this.boardRespository.update(board, {where: {board_no: board.board_no}});
   }
 
   async deleteBoard(boardNo: string) {
-    return await this.boardRepository.destroy({where: {board_no: boardNo}});;
+    return await this.boardRespository.destroy({where: {board_no: boardNo}});;
   }
 
 };
