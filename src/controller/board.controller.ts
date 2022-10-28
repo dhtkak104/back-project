@@ -1,36 +1,34 @@
-import { Request, Response } from "express";
+import { Express, Request, Response } from 'express';
+import validateReqiest from '../middleware/validateRequest';
+import { insertBoardSchema } from '../schema/boardsSchema';
 import { BoardService } from '../service/board.service';
 
-export class BoardsController {
+const boardService = new BoardService();
 
-  private boardService: BoardService;
-
-  constructor() {
-    this.boardService = new BoardService();
-  }
-
-  async selectBoards(req: Request, res: Response) {
-    const response = await this.boardService.getBoards();  
+export default (app: Express) => {
+  
+  app.get('/boards', async (req: Request, res: Response) => {
+    const response = await boardService.getBoards();  
     return res.status(response.status).json(response);
-  };
+  });
 
-  async insertBoard(req: Request, res: Response) {
-    const response = await this.boardService.insertBoard(req.body);
+  app.post('/boards', validateReqiest(insertBoardSchema), async (req: Request, res: Response) => {
+    const response = await boardService.insertBoard(req.body);
     return res.status(response.status).json(response);   
-  };
+  });
 
-  async selectBoard(req: Request, res: Response) {
-    const response = await this.boardService.getBoard(req.params.board_no);
+  app.get('/boards/:board_no', async (req: Request, res: Response) => {
+    const response = await boardService.getBoard(req.params.board_no);
     return res.status(response.status).json(response);
-  };
+  });
 
-  async updateBoard(req: Request, res: Response) {
-    const response = await this.boardService.updateBoard(req.body);
+  app.put('/boards/:board_no', async (req: Request, res: Response) => {
+    const response = await boardService.updateBoard(req.body);
     return res.status(response.status).json(response);
-  };
+  });
 
-  async deleteBoard(req: Request, res: Response) {
-    const response = await this.boardService.deleteBoard(req.params.board_no);
+  app.delete('/boards/:board_no',async (req: Request, res: Response) => {
+    const response = await boardService.deleteBoard(req.params.board_no);
     return res.status(response.status).json(response);
-  };
+  });
 };

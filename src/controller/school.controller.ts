@@ -1,18 +1,15 @@
-import { Request, Response } from "express";
+import { Express, Request, Response } from "express";
+import validateReqiest from '../middleware/validateRequest';
+import { selelctSchoolsSchema } from '../schema/schoolsSchema';
 import { SchoolService } from '../service/school.service';
 
-export class SchoolController {
+const schoolService = new SchoolService();
 
-  private schoolService: SchoolService;
-
-  constructor() {
-    this.schoolService = new SchoolService();
-  }
-
-  async selectSchools(req: Request, res: Response) { 
-    const response = await this.schoolService.getSchools(req.body); 
+export default (app: Express) => {
+  app.get('/schools', validateReqiest(selelctSchoolsSchema), async (req: Request, res: Response) => { 
+    const response = await schoolService.getSchools(req.body); 
     return res.status(response.status).json(response);
-  }
+  });
 };
 
 

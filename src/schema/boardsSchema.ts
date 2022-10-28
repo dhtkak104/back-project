@@ -1,5 +1,14 @@
 import { object, string, number } from 'yup';
 
+export type BoardDTO = {
+  board_no: number;
+  title: string;
+  contents: string;
+  image_link: string;
+  insert_ts: string;
+  udpate_ts: string;
+} 
+
 export const insertBoardSchema = object({
   body: object({
     title: string()

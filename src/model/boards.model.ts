@@ -1,8 +1,7 @@
-/* 
 import { boardDTO } from '../interface/baordsDTO';
-import db from '../config/db';
+import { db } from '../config/db';
 
-export const boardsModel = {
+export class BoardModel {  
   getBoards() {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM demo.t_boards;';
@@ -11,7 +10,7 @@ export const boardsModel = {
         else    resolve(data.rows);
       });
     }); 
-  },
+  };
 
   insertBoard(board: boardDTO) {
     return new Promise((resolve, reject) => {
@@ -21,7 +20,7 @@ export const boardsModel = {
         else    resolve({});
       });
     }); 
-  },
+  };
 
   getBoard(board_no: string) {
     return new Promise((resolve, reject) => {
@@ -31,7 +30,7 @@ export const boardsModel = {
         else    resolve(data.rows[0]);
       });
     }); 
-  },
+  };
 
   updateBoard(board: boardDTO) {
     return new Promise((resolve, reject) => {
@@ -41,7 +40,7 @@ export const boardsModel = {
         else    resolve({});
       });
     }); 
-  },
+  };
 
   deleteBoard(board_no: string) {
     return new Promise((resolve, reject) => {
@@ -51,6 +50,6 @@ export const boardsModel = {
         else    resolve({});
       });
     }); 
-  },
-};
-*/
+  };
+}
+

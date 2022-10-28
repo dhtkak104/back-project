@@ -3,7 +3,10 @@ import './config/dotenv';
 import express, {Request, Response} from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import routes from './routes';
+import commonCtrl from './controller/common.controller';
+import boardCtrl from './controller/board.controller';
+import schoolCtrl from './controller/school.controller';
+import { db } from './config/db';
 
 const port = process.env.PORT || 8081 as number;
 const app = express();
@@ -16,12 +19,12 @@ app.use(bodyParser.json());
 //URL을 통해 전달되는 데이터레 한글, 공백 등과 같은 문자가 포함될 경우 제대로 인식되지 않는 문제해결
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req: Request, res: Response) => {
-    res.send();
-}) 
 
 app.listen(port, () => {
   console.log(`${port} 번 가동`);
-  routes(app);
+  db.connect();
+  commonCtrl(app);
+  boardCtrl(app);
+  schoolCtrl(app);
 });
 
